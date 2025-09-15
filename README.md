@@ -19,7 +19,7 @@ Built using **Node.js + Express + PostgreSQL + JWT + Supertest**.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Mohamad-Adwan/shopping-api.git
+   git clone https://github.com/Mohamad-Adwan/fullstack_Udacity2
    cd shopping-api
 ---
 
