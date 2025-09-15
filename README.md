@@ -32,6 +32,7 @@ Built using **Node.js + Express + PostgreSQL + JWT + Supertest**.
 - **Jasmine + Supertest** for testing
 
 ---
+```
 shopping-api/
 ├── src/
 │ ├── spec/
@@ -52,9 +53,12 @@ shopping-api/
 ├── scripts #here will find tables
 ├── .env 
 └── README.md
+```
 
 ---
--- Users table
+## My SQl Table
+### Users table
+```
 CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   email VARCHAR(255) UNIQUE NOT NULL,
@@ -64,8 +68,9 @@ CREATE TABLE IF NOT EXISTS users (
   created_at TIMESTAMPTZ DEFAULT now(),
   updated_at TIMESTAMPTZ DEFAULT now()
 );
-
--- Categories table
+```
+### Categories table
+```
 CREATE TABLE IF NOT EXISTS categories (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) UNIQUE NOT NULL,
@@ -73,8 +78,9 @@ CREATE TABLE IF NOT EXISTS categories (
   created_at TIMESTAMPTZ DEFAULT now(),
   updated_at TIMESTAMPTZ DEFAULT now()
 );
-
--- Products table
+```
+### Products table
+```
 CREATE TABLE IF NOT EXISTS products (
   id SERIAL PRIMARY KEY,
   sku VARCHAR(100) UNIQUE,
@@ -86,8 +92,9 @@ CREATE TABLE IF NOT EXISTS products (
   created_at TIMESTAMPTZ DEFAULT now(),
   updated_at TIMESTAMPTZ DEFAULT now()
 );
-
--- Cart table
+```
+### Cart table
+```
 CREATE TABLE IF NOT EXISTS carts (
   id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
@@ -95,8 +102,9 @@ CREATE TABLE IF NOT EXISTS carts (
   created_at TIMESTAMPTZ DEFAULT now(),
   updated_at TIMESTAMPTZ DEFAULT now()
 );
-
--- Cart items table
+```
+### Cart items table
+```
 CREATE TABLE IF NOT EXISTS cart_items (
   id SERIAL PRIMARY KEY,
   cart_id INTEGER REFERENCES carts(id) ON DELETE CASCADE,
@@ -106,8 +114,9 @@ CREATE TABLE IF NOT EXISTS cart_items (
   created_at TIMESTAMPTZ DEFAULT now(),
   updated_at TIMESTAMPTZ DEFAULT now()
 );
-
--- Orders table
+```
+### Orders table
+```
 CREATE TABLE IF NOT EXISTS orders (
   id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
@@ -117,8 +126,9 @@ CREATE TABLE IF NOT EXISTS orders (
   created_at TIMESTAMPTZ DEFAULT now(),
   updated_at TIMESTAMPTZ DEFAULT now()
 );
-
--- Order items table
+```
+### Order items table
+```
 CREATE TABLE IF NOT EXISTS order_items (
   id SERIAL PRIMARY KEY,
   order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
@@ -126,8 +136,9 @@ CREATE TABLE IF NOT EXISTS order_items (
   quantity INTEGER NOT NULL CHECK (quantity > 0),
   unit_price NUMERIC(12,2) NOT NULL
 );
-
--- Reviews table
+```
+### Reviews table
+```
 CREATE TABLE IF NOT EXISTS reviews (
   id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
@@ -137,11 +148,12 @@ CREATE TABLE IF NOT EXISTS reviews (
   created_at TIMESTAMPTZ DEFAULT now(),
   updated_at TIMESTAMP DEFAULT now()
 );
-
--- Indexes for faster queries
+```
+### Indexes for faster queries
+```
 CREATE INDEX IF NOT EXISTS idx_products_name ON products (name);
 CREATE INDEX IF NOT EXISTS idx_products_category ON products (category_id);
-
+```
 ---
 ### Scripts
 "scripts": {
