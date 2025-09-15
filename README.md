@@ -36,21 +36,21 @@ Built using **Node.js + Express + PostgreSQL + JWT + Supertest**.
 shopping-api/
 ├── src/
 │ ├── spec/
-│ │ ├── handlers/ # Express route definitions
-│ │ ├── models/ # Database models
-│ ├── db/ # Route handlers (logic)
-│ ├── handlers/ # Middleware (e.g., JWT auth)
+│ │ ├── handlers/ # Handler (ts)
+│ │ ├── models/ # Models (ts)
+│ ├── db/ # Database connection
+│ ├── handlers/ # 
 │ ├── models.ts # Application entry point
-│ └── middleware/ # Database connection
+│ └── middleware/ Middleware (e.g., JWT auth)
 ├── server.ts # Application entry point
-├── spec/ # Test files
-│ ├── handlers/ # Express route definitions
-│ ├── models/ # Database models
-│ └── support/ # Express route definitions
-├── dist/ # Compiled output (TypeScript) test will apply here
+├── spec/ 
+│ ├── handlers/ # (empty)
+│ ├── models/ # (empty)
+│ └── support/ # jasmin.json
+├── dist/ # Compiled output (TypeScript) , Test files (test will apply here)
 ├── package.json
 ├── tsconfig.json
-├── scripts #here will find tables
+├── scripts # (here will find tables)
 ├── .env 
 └── README.md
 ```
