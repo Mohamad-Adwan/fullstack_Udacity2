@@ -1,0 +1,58 @@
+import request from 'supertest';
+import app from '../../server';
+
+describe('Cart Items API', () => {
+  let cartId: number;
+  let itemId: number;
+
+  beforeAll(async () => {
+    const cartRes = await request(app)
+      .post('/api/v1/cart')  
+      .send({ user_id: 1 });
+    cartId = cartRes.body.id;
+  });
+
+  it('GET /api/v1/cartItem/cart/:cart_id should return 200', async () => {
+    const res = await request(app).get(`/api/v1/cartItem/cart/${cartId}`);
+    expect(res.status).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+  });
+
+  it('POST /api/v1/cartItem should create a cart item', async () => {
+    const res = await request(app)
+      .post('/api/v1/cartItem')
+      .send({
+        cart_id: cartId,
+        product_id: 1,
+        quantity: 3,
+        unit_price: '10.00'
+      });
+    itemId = res.body.id; 
+    expect(res.status).toBe(201);
+    expect(res.body.quantity).toBe(3);
+    expect(res.body.unit_price).toBe('10.00');
+  });
+
+  it('GET /api/v1/cartItem/:id should get the created item', async () => {
+    const res = await request(app).get(`/api/v1/cartItem/${itemId}`);
+    console.log('Created item:', res.body);
+
+    expect(res.status).toBe(200);
+    expect(res.body.id).toBe(itemId);
+  });
+
+  it('PUT /api/v1/cartItem/:id should update the cart item', async () => {
+    const res = await request(app)
+      .put(`/api/v1/cartItem/${itemId}`)
+      .send({ quantity: 5 });
+    expect(res.status).toBe(200);
+    expect(res.body.quantity).toBe(5);
+  });
+afterAll(async () => {
+  
+    const res = await request(app).delete(`/api/v1/cartItem/${itemId}`);
+    expect(res.status).toBe(204); 
+  });
+
+ 
+});

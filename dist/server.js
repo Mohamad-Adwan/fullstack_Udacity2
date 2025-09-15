@@ -1,0 +1,29 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+const auth_handler_1 = __importDefault(require("./handlers/auth.handler"));
+const product_handler_1 = __importDefault(require("./handlers/product.handler"));
+const cart_handler_1 = __importDefault(require("./handlers/cart.handler"));
+const cartItem_handler_1 = __importDefault(require("./handlers/cartItem.handler"));
+const category_handler_1 = __importDefault(require("./handlers/category.handler"));
+const order_handler_1 = __importDefault(require("./handlers/order.handler"));
+const review_handler_1 = __importDefault(require("./handlers/review.handler"));
+const app = (0, express_1.default)();
+app.use(express_1.default.json());
+app.use('/api/v1/auth', auth_handler_1.default);
+app.use('/api/v1/products', product_handler_1.default);
+app.use('/api/v1/cart', cart_handler_1.default);
+app.use('/api/v1/cartItem', cartItem_handler_1.default);
+app.use('/api/v1/categorie', category_handler_1.default);
+app.use('/api/v1/order', order_handler_1.default);
+app.use('/api/v1/review', review_handler_1.default);
+app.get('/', (req, res) => res.json({ ok: true }));
+const port = process.env.PORT || 4000;
+if (process.env.NODE_ENV !== 'test')
+    app.listen(port, () => console.log(`Server listening on ${port}`));
+exports.default = app;
