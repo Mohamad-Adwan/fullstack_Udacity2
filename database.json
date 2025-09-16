@@ -1,0 +1,10 @@
+{
+  "dev": {
+    "driver": "pg",
+    "host": "localhost",
+    "database": "shopping_api",
+    "user": "postgres",
+    "password": "admin",
+    "port": 5432
+  }
+}

@@ -7,7 +7,10 @@
     "build": "tsc",
     "watch": "tsc-watch --onSuccess \"node dist/server.js\"",
     "start": "node dist/server.js",
-    "test": "jasmine"
+    "test": "jasmine",
+     "migrate": "db-migrate up",
+  "rollback": "db-migrate down",
+  "migrate-reset": "db-migrate reset"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
@@ -24,6 +27,8 @@
     "@types/node": "^20.19.13",
     "@types/pg": "^8.6.6",
     "@types/supertest": "^2.0.16",
+    "db-migrate": "^0.11.14",
+    "db-migrate-pg": "^1.5.2",
     "jasmine": "^4.6.0",
     "supertest": "^6.3.4",
     "ts-node": "^10.9.2",

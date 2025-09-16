@@ -156,15 +156,19 @@ CREATE INDEX IF NOT EXISTS idx_products_category ON products (category_id);
 ```
 ---
 ### Scripts
+```
 "scripts": {
     "build": "tsc",
     "watch": "tsc-watch --onSuccess \"node dist/server.js\"",
     "start": "node dist/server.js",
-    "test": "jasmine"
+    "test": "jasmine",
+    "migrate": "db-migrate up",
+    "rollback": "db-migrate down",
+    "migrate-reset": "db-migrate reset"
   }
-
+```
 ---
-# Yor API's but i make some changes in it , to make project big to put it in my Cv
+# This is your API's ,I made some changes to make the project big and put it in my Cv.
 ## API Endpoints 
 #### Products
 - Index 
