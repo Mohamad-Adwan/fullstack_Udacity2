@@ -5,7 +5,7 @@ describe('OrderModel', () => {
     const model = new order_model_1.OrderModel();
     let created;
     beforeAll(async () => {
-        created = await model.create({ user_id: 1, total: '100.00' });
+        created = await model.create({ user_id: 1, total: 100.00 });
     });
     //   it('creates an order', async () => {
     //   });

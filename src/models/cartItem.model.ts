@@ -33,7 +33,7 @@ export class CartItemModel {
 
   async update(id: number, fields: Partial<CartItem>) {
     const sets: string[] = [];
-    const vals: any[] = [];
+    const vals: (string | number | Date | undefined)[] = [];
     let idx = 1;
 
     for (const key of Object.keys(fields)) {

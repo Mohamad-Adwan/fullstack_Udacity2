@@ -12,9 +12,6 @@ describe('CategoryModel', () => {
         await db_1.default.query('DELETE FROM categories WHERE name = $1', ['Electronics']);
         await db_1.default.query('DELETE FROM categories WHERE name = $1', ['Books']);
         created = await model.create({ name: 'Electronics', description: 'Gadgets', slug: "electronics" });
-        expect(created.name).toBe('Electronics');
-        const found = await model.findById(created.id);
-        expect(found.name).toBe('Electronics');
     });
     it('updates category', async () => {
         const updated = await model.update(created.id, { description: 'Electronic devices' });

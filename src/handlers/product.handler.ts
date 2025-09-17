@@ -1,5 +1,6 @@
 import express from 'express';
 import { ProductModel } from '../models/product.model';
+import { authMiddleware } from './auth.handler'; 
 
 
 const router = express.Router();
@@ -19,7 +20,8 @@ res.json(product);
 });
 
 
-router.post('/', async (req, res) => {
+router.post('/',authMiddleware, async (req, res) => {
+    
 const created = await model.create(req.body);
 res.status(201).json(created);
 });

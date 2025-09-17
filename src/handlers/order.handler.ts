@@ -1,5 +1,6 @@
 import express from 'express';
 import { OrderModel } from '../models/order.model';
+import { authMiddleware } from './auth.handler'; 
 
 const router = express.Router();
 const model = new OrderModel();
@@ -15,7 +16,7 @@ router.get('/:id', async (req, res) => {
   res.json(order);
 });
 
-router.post('/', async (req, res) => {
+router.post('/',authMiddleware, async (req, res) => {
   const created = await model.create(req.body);
   res.status(201).json(created);
 });

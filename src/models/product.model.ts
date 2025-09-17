@@ -24,8 +24,8 @@ return res.rows[0];
 }
 
 
-async list({limit = 20, offset = 0, q, category}: any) {
-const params: any[] = [];
+async list({limit = 20, offset = 0, q, category}: {limit?: number; offset?: number; q?: string; category?: number}) {
+const params: (string | number | Date | undefined)[] = [];
 let where = '';
 if (q) { params.push(`%${q}%`); where += ` AND name ILIKE $${params.length}`; }
 if (category) { params.push(category); where += ` AND category_id = $${params.length}`; }
@@ -38,7 +38,7 @@ return r.rows;
 
 async update(id: number, fields: Partial<Product>) {
   const sets: string[] = [];
-  const vals: any[] = [];
+  const vals: (string | number | Date | undefined)[] = [];
   let idx = 1;
 
   for (const key of Object.keys(fields)) {

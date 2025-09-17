@@ -11,26 +11,39 @@ const user_model_1 = require("../models/user.model");
 const router = express_1.default.Router();
 const userModel = new user_model_1.UserModel();
 const JWT_SECRET = process.env.JWT_SECRET || 'secret';
-// Register
 router.post('/register', async (req, res) => {
-    const { email, password, name } = req.body;
-    const hashed = await bcrypt_1.default.hash(password, 10);
-    const user = await userModel.create({ email, password_hash: hashed, name });
-    res.status(201).json(user);
+    try {
+        const { email, password, name } = req.body;
+        // Check if user already exists
+        const existing = await userModel.findByEmail(email);
+        if (existing)
+            return res.status(400).json({ error: 'Email already exists' });
+        const hashed = await bcrypt_1.default.hash(password, 10);
+        const user = await userModel.create({ email, password_hash: hashed, name });
+        res.status(201).json(user);
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
 });
-// Login
 router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-    const user = await userModel.findByEmail(email);
-    if (!user)
-        return res.status(401).json({ error: 'Invalid credentials' });
-    const valid = await bcrypt_1.default.compare(password, user.password_hash);
-    if (!valid)
-        return res.status(401).json({ error: 'Invalid credentials' });
-    const token = jsonwebtoken_1.default.sign({ userId: user.id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token });
+    try {
+        const { email, password } = req.body;
+        const user = await userModel.findByEmail(email);
+        if (!user)
+            return res.status(401).json({ error: 'Invalid credentials' });
+        const valid = await bcrypt_1.default.compare(password, user.password_hash);
+        if (!valid)
+            return res.status(401).json({ error: 'Invalid credentials' });
+        const token = jsonwebtoken_1.default.sign({ userId: user.id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
+        res.json({ token });
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
 });
-// Middleware to protect routes
 function authMiddleware(req, res, next) {
     const authHeader = req.headers.authorization;
     if (!authHeader)
@@ -50,9 +63,9 @@ router.get('/me', authMiddleware, (req, res) => {
         return res.status(401).json({ message: 'Unauthorized' });
     }
     res.json({
-        id: req.user.id,
+        id: req.user.userId,
         email: req.user.email,
-        name: req.user.name
+        role: req.user.role
     });
 });
 exports.default = router;

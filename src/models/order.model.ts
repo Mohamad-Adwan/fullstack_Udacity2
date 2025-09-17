@@ -5,7 +5,6 @@ export interface Order {
   user_id: number;
   status?: string; // pending | paid | shipped | completed | cancelled
   total?: number;
-  total_price?: string;
   address_id?: number;
 }
 
@@ -32,7 +31,7 @@ export class OrderModel {
 
   async update(id: number, fields: Partial<Order>) {
     const sets: string[] = [];
-    const vals: any[] = [];
+    const vals: (string | number | Date | undefined)[] = [];
     let idx = 1;
     for (const key of Object.keys(fields)) {
       sets.push(`${key} = $${idx}`);

@@ -1,7 +1,7 @@
 import pool from '../db';
 
 export interface Cart {
-  id?: number;
+  id: number;
   user_id: number;
   checked_out?: string;
   created_at?: Date;
@@ -36,7 +36,7 @@ export class CartModel {
 
   async update(id: number, fields: Partial<Cart>) {
     const sets: string[] = [];
-    const vals: any[] = [];
+    const vals: (string | number | Date | undefined)[] = [];
     let idx = 1;
 
     for (const key of Object.keys(fields)) {

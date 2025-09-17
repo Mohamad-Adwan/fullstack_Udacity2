@@ -168,41 +168,115 @@ CREATE INDEX IF NOT EXISTS idx_products_category ON products (category_id);
   }
 ```
 ---
-# This is your API's ,I made some changes to make the project big and put it in my Cv.
 ## API Endpoints 
 #### Products
 - Index 
-- Show (args: product id)
+- Show (args: product id)(findById)
 - Create (args: Product)[token required]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
+- Update
+- delete
 
 #### Users
 - Index [token required]
-- Show (args: id)[token required]
+- Show (args: id)[token required] (findById)
 - Create (args: User)[token required]
+- FindByEmail
+- Update
+- Delete
 
 #### Orders
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- Create (args: order)[token required]
+- Update
+- delete
+- findById (args: order id)(findById)
+- list
+
+#### Review
+- create
+- findById
+- listByProduct
+- update
+- delete
+
+ #### Category
+- create
+- findById
+- update
+- delete
+
+#### CartItem
+- create
+- findById
+- update
+- delete
+- list
+
+#### Cart
+- create
+- list
+- findById
+- update
+- delete
 
 ## Data Shapes
 #### Product
 -  id
 - name
+- sku
+- description
 - price
-- [OPTIONAL] category
+- stock
+- category_id
+- created_at
 
 #### User
 - id
-- firstName
-- lastName
-- password
+- name
+- email
+- password_hash
+- role
+
+#### Categories
+- id
+- name
+- slug
+- created_at
+
+#### Carts
+- id
+- user_id
+- checked_out
+- created_at
+
+#### cart_items
+- id
+- cart_id
+- product_id
+- quantity
+- unit_price
+- created_at
 
 #### Orders
 - id
-- id of each product in the order
-- quantity of each product in the order
+- total
+- address
 - user_id
-- status of order (active or complete)
+- status
+- created_at
+
+#### Order_items
+-  id
+- order_id
+- product_id
+- quantity
+- unit_price
+
+#### Reviews
+- id
+- user_id
+- product_id
+- rating
+- comment
+- created_at
+
 

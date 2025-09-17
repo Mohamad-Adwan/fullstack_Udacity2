@@ -13,6 +13,7 @@ const cartItem_handler_1 = __importDefault(require("./handlers/cartItem.handler"
 const category_handler_1 = __importDefault(require("./handlers/category.handler"));
 const order_handler_1 = __importDefault(require("./handlers/order.handler"));
 const review_handler_1 = __importDefault(require("./handlers/review.handler"));
+const user_handler_1 = __importDefault(require("./handlers/user.handler"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use('/api/v1/auth', auth_handler_1.default);
@@ -22,6 +23,7 @@ app.use('/api/v1/cartItem', cartItem_handler_1.default);
 app.use('/api/v1/categorie', category_handler_1.default);
 app.use('/api/v1/order', order_handler_1.default);
 app.use('/api/v1/review', review_handler_1.default);
+app.use('/api/v1/users', user_handler_1.default);
 app.get('/', (req, res) => res.json({ ok: true }));
 const port = process.env.PORT || 4000;
 if (process.env.NODE_ENV !== 'test')

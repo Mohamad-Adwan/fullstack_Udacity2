@@ -26,7 +26,7 @@ async findByEmail(email: string) {
 
   async update(id: number, fields: Partial<User>) {
     const sets: string[] = [];
-    const vals: any[] = [];
+    const vals:(string | number | Date | undefined)[]= [];
     let idx = 1;
     for (const key of Object.keys(fields)) {
       sets.push(`${key} = $${idx}`);

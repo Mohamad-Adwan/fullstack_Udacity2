@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const product_model_1 = require("../models/product.model");
+const auth_handler_1 = require("./auth.handler");
 const router = express_1.default.Router();
 const model = new product_model_1.ProductModel();
 router.get('/', async (req, res) => {
@@ -17,7 +18,7 @@ router.get('/:id', async (req, res) => {
         return res.status(404).json({ error: 'Not found' });
     res.json(product);
 });
-router.post('/', async (req, res) => {
+router.post('/', auth_handler_1.authMiddleware, async (req, res) => {
     const created = await model.create(req.body);
     res.status(201).json(created);
 });
